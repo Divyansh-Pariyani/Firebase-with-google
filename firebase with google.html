@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<h1>Hello</h1>
+<span id = "clientName"></span>
+
+    <script type="module">
+        //importing the crucial information
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+        import { getAuth , GoogleAuthProvider , signInWithRedirect  ,getRedirectResult } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+        
+      
+        //details copied from firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyDrvmTkrL98X0YTm-0HvXKxekDyVOzjXGg",
+          authDomain: "exampleforvideo-c0ea9.firebaseapp.com",
+          projectId: "exampleforvideo-c0ea9",
+          storageBucket: "exampleforvideo-c0ea9.appspot.com",
+          messagingSenderId: "60416719209",
+          appId: "1:60416719209:web:1d18686db321a0643c25f8"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider(app);
+
+        login.addEventListener('click' , (e) => {
+            signInWithRedirect(auth , provider)
+
+
+            .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+
+
+    alert(user.displayName);
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+
+    alert(errorMessage);
+  });
+ });
+
+
+
+       
+
+      </script>
+
+      <button type = "button" id = "login">Google</button>
+
+</body>
+</html>
